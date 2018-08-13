@@ -1,5 +1,13 @@
-#ifndef COLLECTIONS_C_COMMON_H
-#define COLLECTIONS_C_COMMON_H
+/************************************************
+# File: common.h
+# Desc.: Contains all the common library includes
+# Author: Hrishikesh Adigal
+# email: hadigal@sdsu.edu
+# Date: 08/10/2018
+************************************************/
+
+#ifndef COMMON_H
+#define COMMON_H
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,10 +1,16 @@
+/************************************************
+# File: linkedList.c
+# Author: Hrishikesh Adigal
+# email: hadigal@sdsu.edu
+# Date: 08/10/2018
+************************************************/
 #include "list.h"
 
 int main(void)
 {
   struct node *start = NULL;
   int choice;
-  int data;
+  int data,item,pos;
   unsigned int countNode;
 
   do
@@ -17,9 +23,14 @@ int main(void)
     printf("5. reverse the list\n");
     printf("6. count the nodes of the list\n");
     printf("7. Dislplay info of each node\n");
+    printf("8. insert before a node\n");
+    printf("9. insert after a node\n");
+    printf("10. insert at a particular position\n");
+    printf("11. Delete a node\n");
     printf("0. EXIT\n");
     printf("\n*******************************************\n");
 
+    printf("\nEnter your choice:\n");
     scanf("%d",&choice);
 
     switch(choice)
@@ -35,7 +46,6 @@ int main(void)
         break;
 
       case 3:
-        //int data;
         printf("\nEnter data for node to be inserted at the End of the list:\n");
         scanf("%d",&data);
         start = addAtEnd(start,data);
@@ -60,6 +70,36 @@ int main(void)
         display(start);
         break;
 
+      case 8:
+        printf("Enter the new node data:\n");
+        scanf("%d",&data);
+        printf("Enter the item:\n");
+        scanf("%d",&item);
+        start = insertBefore(start,data,item);
+        break;
+
+      case 9:
+        printf("Enter the new node data:\n");
+        scanf("%d",&data);
+        printf("Enter the item:\n");
+        scanf("%d",&item);
+        start = insertAfter(start,data,item);
+        break;
+
+      case 10:
+        printf("Enter the new node data:\n");
+        scanf("%d",&data);
+        printf("Enter the pos:\n");
+        scanf("%d",&pos);
+        start = insertAtPos(start,data,pos);
+        break;
+
+      case 11:
+        printf("Enter the node data to be deleted:\n");
+        scanf("%d",&data);
+        start = deleteNode(start,data);
+        break;
+
       case 0:
         printf("\nExiting the query!\n");
         return EXIT_SUCCESS;
@@ -68,6 +108,5 @@ int main(void)
         printf("\nError in ip[%d]; enter correct option from the menu\n",choice);
         break;
     }
-    //scanf("%d",&choice);
   }while(choice);
 }

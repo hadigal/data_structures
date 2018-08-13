@@ -1,3 +1,11 @@
+/************************************************
+# File: list.c
+# Desc.: Contains all the list function definitions
+# Author: Hrishikesh Adigal
+# email: hadigal@sdsu.edu
+# Date: 08/10/2018
+************************************************/
+
 #include "list.h"
 
 struct node *createList(struct node *start)
@@ -127,5 +135,132 @@ struct node *reverse(struct node *start)
     ptr = nxtLink;
   }
   start = currLink;
+  return start;
+}
+
+struct node *insertAfter(struct node *start,int data, int item)
+{
+  struct node *ptr;
+  ptr = start;
+
+  if(start == NULL)
+  {
+    printf("empty list\n");
+    return start;
+  }
+
+  while(ptr != NULL)
+  {
+    if(ptr->info == item)
+    {
+      //struct node *tempPtr = ptr->link;
+      struct node *tempNode = (struct node *)malloc(1*sizeof(struct node));
+      tempNode->info = data;
+      tempNode->nextLink = ptr->nextLink;
+      ptr->nextLink = tempNode;
+      return start;
+    }
+    ptr = ptr->nextLink;
+  }
+  printf("Item[%d] not found in the list\n",item);
+  return start;
+}
+
+struct node *insertBefore(struct node *start, int data, int item)
+{
+  if(start == NULL)
+  {
+    printf("Empty List\n");
+    return start;
+  }
+
+  if(start->info == item)
+  {
+    struct node *tempNode = (struct node *)calloc(1,sizeof(struct node));
+    tempNode->info =  data;
+    tempNode->nextLink = start;
+    start = tempNode;
+    return start;
+  }
+
+  struct node * ptr = start;
+  while(ptr->nextLink != NULL)
+  {
+    if(ptr->nextLink->info == item)
+    {
+      struct node * tempNode = (struct node *)calloc(1,sizeof(struct node));
+      tempNode->info = data;
+      tempNode->nextLink = ptr->nextLink;
+      ptr->nextLink = tempNode;
+      return start;
+    }
+    ptr = ptr->nextLink;
+  }
+  printf("Item[%d] not found\n",item);
+  return start;
+}
+
+struct node *insertAtPos(struct node *start, int data, int pos)
+{
+  struct node *ptr = start;
+  struct node * tempNode;
+  int itr;
+  for(itr = 1; itr < pos - 1 && ptr != NULL; itr++)
+  {
+    ptr = ptr->nextLink;
+  }
+
+  if(ptr == NULL)
+  {
+    printf("Not enough elements in the given list\n");
+    return start;
+  }
+  else
+  {
+    tempNode = (struct node *)calloc(1,sizeof(struct node));
+    tempNode->info = data;
+    if(pos == 1)
+    {
+      tempNode->nextLink = start;
+      start = tempNode;
+      return start;
+    }
+    else
+    {
+      tempNode->nextLink = ptr->nextLink;
+      ptr->nextLink = tempNode;
+      return start;
+    }
+  }
+}
+
+struct node *deleteNode(struct node *start, int data)
+{
+  if(start == NULL)
+  {
+    printf("List is empty\n");
+    return start;
+  }
+  struct node *temp;
+  if(start->info == data)
+  {
+    temp = start;
+    start = temp->nextLink;
+    free(temp);
+    return start;
+  }
+  struct node *ptr = start;
+  while(ptr->nextLink != NULL)
+  {
+    if(ptr->nextLink->info == data)
+    {
+      temp = ptr->nextLink;
+      ptr->nextLink = temp->nextLink;
+      free(temp);
+      return start;
+    }
+    ptr = ptr->nextLink;
+  }
+  printf("Node with data[%d] not found\n",data);
   return start;
 }
